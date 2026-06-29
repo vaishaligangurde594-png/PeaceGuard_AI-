@@ -120,15 +120,39 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # --- TODAY'S ALERT ---
-st.markdown("""
-<div class="alert-card">
-    <div>
-        <span style="font-weight:700; color:#c53030;">⚠ ALERT:</span> 
-        <span style="color:#2d3748;">Fake Internship Scam Trending in Tech Communities.</span>
+alert_col1, alert_col2 = st.columns([4.2, 1])
+with alert_col1:
+    st.markdown("""
+    <div class="alert-card" style="padding: 12px; height: 48px; display: flex; align-items: center;">
+        <div>
+            <span style="font-weight:700; color:#c53030;">⚠ ALERT:</span> 
+            <span style="color:#2d3748;">Fake Internship Scam Trending in Tech Communities.</span>
+        </div>
     </div>
-    <a href="/Community" target="_self" style="background:#feb2b2; border:none; padding:5px 15px; border-radius:8px; cursor:pointer; text-decoration:none; color:#1e293b; font-size:0.85rem; font-weight:600; display:inline-block;">View All Alerts</a>
-</div>
-""", unsafe_allow_html=True)
+    """, unsafe_allow_html=True)
+with alert_col2:
+    st.markdown("""
+    <style>
+    .alert-btn button {
+        background-color: #feb2b2 !important;
+        border: none !important;
+        border-radius: 8px !important;
+        color: #1e293b !important;
+        font-size: 0.85rem !important;
+        font-weight: 600 !important;
+        height: 48px !important;
+        transition: opacity 0.2s !important;
+    }
+    .alert-btn button:hover {
+        opacity: 0.9 !important;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+    st.markdown('<div class="alert-btn">', unsafe_allow_html=True)
+    if st.button("View All Alerts ➔", use_container_width=True, key="home_alert_btn"):
+        st.switch_page("pages/community.py")
+    st.markdown('</div>', unsafe_allow_html=True)
+
 st.write("")
 
 # --- QUICK ACTIONS GRID ---

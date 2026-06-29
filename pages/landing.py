@@ -30,465 +30,463 @@ if st.session_state.get("demo_mode", False) and st.session_state.get("demo_step"
         st.session_state.demo_step = 2
         st.switch_page("pages/ai_scanner.py")
 
+# CSS styles block
 st.markdown("""
 <style>
-.page, .page *{
-box-sizing:border-box;
-font-family:Inter,Arial,sans-serif;
+.page, .page * {
+    box-sizing: border-box;
+    font-family: Inter, Arial, sans-serif;
 }
 
 body, .stApp {
-margin:0;
-color:#102033;
-background:
-radial-gradient(circle at 8% 8%,rgba(47,128,237,.23),transparent 30%),
-radial-gradient(circle at 88% 12%,rgba(32,201,151,.25),transparent 32%),
-linear-gradient(135deg,#f7fcff,#effff8) !important;
+    margin: 0;
+    color: #102033;
+    background:
+    radial-gradient(circle at 8% 8%, rgba(47,128,237,.23), transparent 30%),
+    radial-gradient(circle at 88% 12%, rgba(32,201,151,.25), transparent 32%),
+    linear-gradient(135deg, #f7fcff, #effff8) !important;
 }
 
-.page{
-max-width:1180px;
-margin:auto;
-padding:28px;
+.page {
+    max-width: 1180px;
+    margin: auto;
+    padding: 28px;
 }
 
-.nav{
-position:sticky;
-top:18px;
-z-index:20;
-display:flex;
-align-items:center;
-justify-content:space-between;
-padding:15px 20px;
-border-radius:28px;
-background:rgba(255,255,255,.68);
-border:1px solid rgba(255,255,255,.9);
-backdrop-filter:blur(22px);
-box-shadow:0 24px 70px rgba(47,128,237,.15);
+.nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 20px;
+    border-radius: 28px;
+    background: rgba(255, 255, 255, .68);
+    border: 1px solid rgba(255, 255, 255, .9);
+    backdrop-filter: blur(22px);
+    box-shadow: 0 24px 70px rgba(47, 128, 237, .15);
+    margin-bottom: 30px;
 }
 
-.brand{
-display:flex;
-align-items:center;
-gap:14px;
-font-size:24px;
-font-weight:800;
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-size: 24px;
+    font-weight: 800;
+    color: #1e3a8a;
 }
 
-.logo-wrap{
-width:56px;
-height:56px;
-border-radius:20px;
-background:linear-gradient(135deg,#2f80ed,#20c997);
-display:grid;
-place-items:center;
-position:relative;
-box-shadow:0 18px 45px rgba(47,128,237,.25);
+.logo-wrap {
+    width: 56px;
+    height: 56px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, #2f80ed, #20c997);
+    display: grid;
+    place-items: center;
+    position: relative;
+    box-shadow: 0 18px 45px rgba(47, 128, 237, .25);
 }
 
-.logo-wrap:before{
-content:"";
-position:absolute;
-inset:-8px;
-border-radius:28px;
-border:2px solid rgba(47,128,237,.22);
-border-top-color:#20c997;
-border-right-color:#2f80ed;
-animation:spin 3s linear infinite;
+.logo-wrap:before {
+    content: "";
+    position: absolute;
+    inset: -8px;
+    border-radius: 28px;
+    border: 2px solid rgba(47, 128, 237, .22);
+    border-top-color: #20c997;
+    border-right-color: #2f80ed;
+    animation: spin 3s linear infinite;
 }
 
-.logo-wrap:after{
-content:"";
-position:absolute;
-inset:-15px;
-border-radius:34px;
-border:1px dashed rgba(32,201,151,.35);
-animation:spinReverse 7s linear infinite;
+.logo-wrap:after {
+    content: "";
+    position: absolute;
+    inset: -15px;
+    border-radius: 34px;
+    border: 1px dashed rgba(32, 201, 151, .35);
+    animation: spinReverse 7s linear infinite;
 }
 
-.logo-shield{
-width:29px;
-height:36px;
-background:white;
-clip-path:polygon(50% 0,88% 15%,86% 55%,70% 82%,50% 100%,30% 82%,14% 55%,12% 15%);
-position:relative;
-z-index:2;
+.logo-shield {
+    width: 29px;
+    height: 36px;
+    background: white;
+    clip-path: polygon(50% 0, 88% 15%, 86% 55%, 70% 82%, 50% 100%, 30% 82%, 14% 55%, 12% 15%);
+    position: relative;
+    z-index: 2;
 }
 
-.links{
-display:flex;
-align-items:center;
-gap:28px;
-font-weight:700;
+.hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 58px;
+    align-items: center;
+    min-height: 550px;
 }
 
-.links a{
-color:#50687b;
-text-decoration:none;
-transition:.25s;
+.badge {
+    display: inline-block;
+    margin-bottom: 20px;
+    padding: 10px 16px;
+    border-radius: 99px;
+    background: rgba(255, 255, 255, .78);
+    color: #087765;
+    font-weight: 800;
+    font-size: 14px;
 }
 
-.links a:hover{
-color:#10806d;
+h1 {
+    font-size: 68px;
+    line-height: 1.04;
+    margin: 0;
+    font-weight: 800;
+    letter-spacing: 0;
 }
 
-.sign{
-padding:12px 21px;
-border-radius:30px;
-color:white;
-background:linear-gradient(135deg,#2f80ed,#20c997);
-box-shadow:0 14px 35px rgba(32,201,151,.25);
+.grad {
+    background: linear-gradient(135deg, #2f80ed, #20c997);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
-.links a.sign {
-color: white !important;
-text-decoration: none !important;
+.tagline {
+    font-size: 22px;
+    font-weight: 800;
+    margin-top: 22px;
+    color: #12344d;
 }
 
-.links a.sign:hover {
-color: white !important;
-opacity: 0.9;
+.sub {
+    font-size: 19px;
+    line-height: 1.75;
+    color: #547085;
+    max-width: 620px;
+    margin-top: 14px;
 }
 
-.hero{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:58px;
-align-items:center;
-min-height:640px;
+.visual {
+    height: 505px;
+    border-radius: 40px;
+    position: relative;
+    overflow: hidden;
+    background: rgba(255, 255, 255, .64);
+    border: 1px solid white;
+    backdrop-filter: blur(24px);
+    box-shadow: 0 34px 90px rgba(30, 88, 143, .18);
 }
 
-.badge{
-display:inline-block;
-margin-bottom:20px;
-padding:10px 16px;
-border-radius:99px;
-background:rgba(255,255,255,.78);
-color:#087765;
-font-weight:800;
-font-size:14px;
+.visual:before {
+    content: "";
+    position: absolute;
+    inset: 30px;
+    border-radius: 30px;
+    background:
+    linear-gradient(90deg, rgba(47, 128, 237, .09) 1px, transparent 1px),
+    linear-gradient(rgba(32, 201, 151, .09) 1px, transparent 1px);
+    background-size: 32px 32px;
 }
 
-h1{
-font-size:68px;
-line-height:1.04;
-margin:0;
-font-weight:800;
-letter-spacing:0;
+.orbit {
+    position: absolute;
+    width: 330px;
+    height: 330px;
+    border-radius: 50%;
+    left: 50%;
+    top: 95px;
+    transform: translateX(-50%);
+    border: 2px solid rgba(47, 128, 237, .25);
+    animation: pulse 3.5s ease-in-out infinite;
 }
 
-.grad{
-background:linear-gradient(135deg,#2f80ed,#20c997);
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
+.orbit:before {
+    content: "";
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #20c997;
+    top: 30px;
+    left: 52px;
+    box-shadow: 0 0 22px rgba(32, 201, 151, .75);
+    animation: orbitMove 5s linear infinite;
 }
 
-.tagline{
-font-size:22px;
-font-weight:800;
-margin-top:22px;
-color:#12344d;
+.big-shield {
+    position: absolute;
+    width: 195px;
+    height: 240px;
+    left: 50%;
+    top: 92px;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, #2f80ed, #20c997);
+    clip-path: polygon(50% 0, 88% 15%, 86% 55%, 70% 82%, 50% 100%, 30% 82%, 14% 55%, 12% 15%);
+    animation: float 4s ease-in-out infinite;
+    box-shadow: 0 25px 65px rgba(47, 128, 237, .28);
 }
 
-.sub{
-font-size:19px;
-line-height:1.75;
-color:#547085;
-max-width:620px;
-margin-top:14px;
+.big-shield:after {
+    content: "";
+    position: absolute;
+    inset: 22px;
+    background: white;
+    clip-path: inherit;
 }
 
-.actions{
-display:flex;
-gap:16px;
-margin-top:32px;
+.float-card {
+    position: absolute;
+    width: 94px;
+    height: 94px;
+    border-radius: 28px;
+    background: rgba(255, 255, 255, .78);
+    box-shadow: 0 18px 45px rgba(47, 128, 237, .14);
+    animation: soft 5s infinite;
 }
 
-.btn{
-padding:16px 25px;
-border-radius:32px;
-text-decoration:none;
-font-weight:800;
-transition:.25s;
-display:inline-block;
+.float-card:after {
+    content: "";
+    position: absolute;
+    inset: 28px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #2f80ed, #20c997);
 }
 
-.btn:hover{
-transform:translateY(-4px);
+.f1 { left: 62px; top: 86px }
+.f2 { right: 64px; top: 145px; animation-delay: -1s }
+.f3 { left: 105px; bottom: 78px; animation-delay: -2s }
+.f4 { right: 105px; bottom: 82px; animation-delay: -1.5s }
+
+.trust {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+    margin: 35px 0 90px;
 }
 
-.primary{
-color:white;
-background:linear-gradient(135deg,#2f80ed,#20c997);
-box-shadow:0 18px 40px rgba(47,128,237,.3);
+.card {
+    background: rgba(255, 255, 255, .68);
+    border: 1px solid white;
+    border-radius: 28px;
+    padding: 28px;
+    box-shadow: 0 22px 60px rgba(33, 93, 145, .12);
+    transition: .25s;
 }
 
-.btn.primary:hover {
-color: white !important;
+.card:hover {
+    transform: translateY(-8px);
 }
 
-.secondary{
-color:#12334b;
-background:white;
-border:1px solid rgba(47,128,237,.18);
+.card h3 {
+    margin: 0 0 10px;
+    font-size: 22px;
 }
 
-.visual{
-height:505px;
-border-radius:40px;
-position:relative;
-overflow:hidden;
-background:rgba(255,255,255,.64);
-border:1px solid white;
-backdrop-filter:blur(24px);
-box-shadow:0 34px 90px rgba(30,88,143,.18);
+.card p {
+    margin: 0;
+    color: #5a7488;
+    line-height: 1.65;
 }
 
-.visual:before{
-content:"";
-position:absolute;
-inset:30px;
-border-radius:30px;
-background:
-linear-gradient(90deg,rgba(47,128,237,.09) 1px,transparent 1px),
-linear-gradient(rgba(32,201,151,.09) 1px,transparent 1px);
-background-size:32px 32px;
+.section-title {
+    text-align: center;
+    margin-bottom: 36px;
 }
 
-.orbit{
-position:absolute;
-width:330px;
-height:330px;
-border-radius:50%;
-left:50%;
-top:95px;
-transform:translateX(-50%);
-border:2px solid rgba(47,128,237,.25);
-animation:pulse 3.5s ease-in-out infinite;
+.section-title h2 {
+    font-size: 44px;
+    margin: 0;
 }
 
-.orbit:before{
-content:"";
-position:absolute;
-width:18px;
-height:18px;
-border-radius:50%;
-background:#20c997;
-top:30px;
-left:52px;
-box-shadow:0 0 22px rgba(32,201,151,.75);
-animation:orbitMove 5s linear infinite;
+.section-title p {
+    color: #5a7488;
+    font-size: 17px;
 }
 
-.big-shield{
-position:absolute;
-width:195px;
-height:240px;
-left:50%;
-top:92px;
-transform:translateX(-50%);
-background:linear-gradient(135deg,#2f80ed,#20c997);
-clip-path:polygon(50% 0,88% 15%,86% 55%,70% 82%,50% 100%,30% 82%,14% 55%,12% 15%);
-animation:float 4s ease-in-out infinite;
-box-shadow:0 25px 65px rgba(47,128,237,.28);
+.features {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+    margin-bottom: 85px;
 }
 
-.big-shield:after{
-content:"";
-position:absolute;
-inset:22px;
-background:white;
-clip-path:inherit;
+.icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 18px;
+    background: linear-gradient(135deg, #2f80ed, #20c997);
+    margin-bottom: 22px;
+    position: relative;
 }
 
-.float-card{
-position:absolute;
-width:94px;
-height:94px;
-border-radius:28px;
-background:rgba(255,255,255,.78);
-box-shadow:0 18px 45px rgba(47,128,237,.14);
-animation:soft 5s infinite;
+.icon:after {
+    content: "";
+    position: absolute;
+    inset: 13px;
+    border-radius: 10px;
+    background: white;
+    opacity: .8;
 }
 
-.float-card:after{
-content:"";
-position:absolute;
-inset:28px;
-border-radius:14px;
-background:linear-gradient(135deg,#2f80ed,#20c997);
+.footer {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    border-top: 1px solid rgba(47, 128, 237, .2);
+    padding: 32px 0;
+    color: #60788a;
 }
 
-.f1{left:62px;top:86px}
-.f2{right:64px;top:145px;animation-delay:-1s}
-.f3{left:105px;bottom:78px;animation-delay:-2s}
-.f4{right:105px;bottom:82px;animation-delay:-1.5s}
-
-.trust{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:22px;
-margin:35px 0 90px;
+/* Custom Sign In Button layout override */
+.nav-signin-btn button {
+    background: linear-gradient(135deg, #2f80ed, #20c997) !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 30px !important;
+    font-weight: 700 !important;
+    padding: 12px 30px !important;
+    height: 48px !important;
+    box-shadow: 0 14px 35px rgba(32, 201, 151, .25) !important;
+    transition: .25s !important;
+}
+.nav-signin-btn button:hover {
+    transform: translateY(-2px) !important;
+    opacity: 0.95 !important;
 }
 
-.card{
-background:rgba(255,255,255,.68);
-border:1px solid white;
-border-radius:28px;
-padding:28px;
-box-shadow:0 22px 60px rgba(33,93,145,.12);
-transition:.25s;
+/* Action buttons override */
+.btn-primary-action button {
+    background: linear-gradient(135deg, #2f80ed, #20c997) !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 32px !important;
+    font-weight: 800 !important;
+    height: 54px !important;
+    font-size: 1.05rem !important;
+    box-shadow: 0 18px 40px rgba(47, 128, 237, .3) !important;
+    transition: .25s !important;
+}
+.btn-primary-action button:hover {
+    transform: translateY(-4px) !important;
 }
 
-.card:hover{
-transform:translateY(-8px);
+.btn-secondary-action button {
+    background: white !important;
+    color: #12334b !important;
+    border: 1px solid rgba(47, 128, 237, .18) !important;
+    border-radius: 32px !important;
+    font-weight: 800 !important;
+    height: 54px !important;
+    font-size: 1.05rem !important;
+    transition: .25s !important;
+}
+.btn-secondary-action button:hover {
+    transform: translateY(-4px) !important;
 }
 
-.card h3{
-margin:0 0 10px;
-font-size:22px;
+@keyframes spin {
+    to { transform: rotate(360deg) }
 }
 
-.card p{
-margin:0;
-color:#5a7488;
-line-height:1.65;
+@keyframes spinReverse {
+    to { transform: rotate(-360deg) }
 }
 
-.section-title{
-text-align:center;
-margin-bottom:36px;
+@keyframes float {
+    50% { transform: translateX(-50%) translateY(-16px) }
 }
 
-.section-title h2{
-font-size:44px;
-margin:0;
+@keyframes pulse {
+    50% { transform: translateX(-50%) scale(1.05); opacity: .55 }
 }
 
-.section-title p{
-color:#5a7488;
-font-size:17px;
+@keyframes soft {
+    50% { transform: translateY(-12px) }
 }
 
-.features{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:22px;
-margin-bottom:85px;
+@keyframes orbitMove {
+    from { transform: rotate(0deg) translateX(145px) rotate(0deg) }
+    to { transform: rotate(360deg) translateX(145px) rotate(-360deg) }
 }
 
-.icon{
-width:52px;
-height:52px;
-border-radius:18px;
-background:linear-gradient(135deg,#2f80ed,#20c997);
-margin-bottom:22px;
-position:relative;
-}
-
-.icon:after{
-content:"";
-position:absolute;
-inset:13px;
-border-radius:10px;
-background:white;
-opacity:.8;
-}
-
-.footer{
-display:flex;
-justify-content:space-between;
-gap:20px;
-border-top:1px solid rgba(47,128,237,.2);
-padding:32px 0;
-color:#60788a;
-}
-
-@keyframes spin{
-to{transform:rotate(360deg)}
-}
-
-@keyframes spinReverse{
-to{transform:rotate(-360deg)}
-}
-
-@keyframes float{
-50%{transform:translateX(-50%) translateY(-16px)}
-}
-
-@keyframes pulse{
-50%{transform:translateX(-50%) scale(1.05);opacity:.55}
-}
-
-@keyframes soft{
-50%{transform:translateY(-12px)}
-}
-
-@keyframes orbitMove{
-from{transform:rotate(0deg) translateX(145px) rotate(0deg)}
-to{transform:rotate(360deg) translateX(145px) rotate(-360deg)}
-}
-
-@media(max-width:900px){
-.hero,.trust,.features{
-grid-template-columns:1fr;
-}
-.links{
-display:none;
-}
-h1{
-font-size:46px;
-}
-.footer{
-flex-direction:column;
-}
+@media(max-width:900px) {
+    .hero, .trust, .features {
+        grid-template-columns: 1fr;
+    }
+    h1 {
+        font-size: 46px;
+    }
+    .footer {
+        flex-direction: column;
+    }
 }
 </style>
+""", unsafe_allow_html=True)
 
+# 1. Custom Floating Navbar (Native Switch for Sign In)
+nav_left, nav_right = st.columns([3.5, 1])
+with nav_left:
+    st.markdown("""
+    <div style="display: flex; align-items: center; gap: 14px; font-size: 24px; font-weight: 800; color: #1e3a8a; padding-top: 5px;">
+        <div class="logo-wrap" style="width: 44px; height: 44px; border-radius: 14px; background: linear-gradient(135deg, #2f80ed, #20c997); display: grid; place-items: center; position: relative;">
+            <div class="logo-shield" style="width: 20px; height: 26px; background: white; clip-path: polygon(50% 0, 88% 15%, 86% 55%, 70% 82%, 50% 100%, 30% 82%, 14% 55%, 12% 15%);"></div>
+        </div>
+        PeaceGuard AI
+    </div>
+    """, unsafe_allow_html=True)
+with nav_right:
+    st.markdown('<div class="nav-signin-btn">', unsafe_allow_html=True)
+    if st.button("Sign In 🔑", use_container_width=True, key="landing_signin_btn"):
+        st.switch_page("pages/login.py")
+    st.markdown('</div>', unsafe_allow_html=True)
+
+# 2. Hero Layout
+hero_left, hero_right = st.columns([1.1, 0.9])
+with hero_left:
+    st.markdown("""
+    <div style="margin-top: 40px;">
+        <div class="badge">AI Safety Platform for Digital Peace</div>
+        <h1 style="font-size: 58px; line-height: 1.1; font-weight: 800; color: #102033; margin: 0;">
+            Building a Safer Digital World with <span class="grad">AI</span>
+        </h1>
+        <div class="tagline" style="font-size: 20px; font-weight: 700; margin-top: 20px; color: #12344d;">
+            Detect danger early. Verify before you trust. Spread peace online.
+        </div>
+        <p class="sub" style="font-size: 16px; color: #547085; line-height: 1.6; margin-top: 15px; margin-bottom: 25px;">
+            PeaceGuard AI helps users detect scams, phishing, misinformation,
+            fake job offers, and suspicious screenshots before they cause harm.
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    # Hero buttons rendered using native Streamlit buttons
+    act_col1, act_col2, _ = st.columns([1, 1.2, 0.5])
+    with act_col1:
+        st.markdown('<div class="btn-primary-action">', unsafe_allow_html=True)
+        if st.button("Get Started 🚀", use_container_width=True, key="hero_get_started"):
+            st.switch_page("pages/login.py")
+        st.markdown('</div>', unsafe_allow_html=True)
+    with act_col2:
+        st.markdown('<div class="btn-secondary-action">', unsafe_allow_html=True)
+        if st.button("Watch Demo 📺", use_container_width=True, key="hero_watch_demo"):
+            st.session_state.demo_mode = True
+            st.session_state.demo_step = 1
+            st.session_state.logged_in = True  # Automatically log in for demo walkthrough
+            st.rerun()
+        st.markdown('</div>', unsafe_allow_html=True)
+
+with hero_right:
+    st.markdown("""
+    <div class="visual" style="margin-top: 45px;">
+        <div class="orbit"></div>
+        <div class="big-shield"></div>
+        <div class="float-card f1"></div>
+        <div class="float-card f2"></div>
+        <div class="float-card f3"></div>
+        <div class="float-card f4"></div>
+    </div>
+    """, unsafe_allow_html=True)
+
+# 3. Features, Trust, and Footer Sections
+st.markdown("""
 <div class="page">
-<nav class="nav">
-  <div class="brand">
-    <div class="logo-wrap">
-      <div class="logo-shield"></div>
-    </div>
-    PeaceGuard AI
-  </div>
-  <div class="links">
-    <a href="#home">Home</a>
-    <a href="#features">Features</a>
-    <a href="#about">About</a>
-    <a href="#contact">Contact</a>
-    <a class="sign" href="/Login" target="_self" style="cursor: pointer;">Sign In</a>
-  </div>
-</nav>
-<section class="hero" id="home">
-  <div>
-    <div class="badge">AI Safety Platform for Digital Peace</div>
-    <h1>
-      Building a Safer Digital World with
-      <span class="grad">AI</span>
-    </h1>
-    <div class="tagline">
-      Detect danger early. Verify before you trust. Spread peace online.
-    </div>
-    <p class="sub">
-      PeaceGuard AI helps users detect scams, phishing, misinformation,
-      fake job offers, and suspicious screenshots before they cause harm.
-    </p>
-    <div class="actions">
-      <a class="btn primary" href="/Login" target="_self" style="cursor: pointer;">Get Started</a>
-      <a class="btn secondary" href="/?demo=start" target="_self" style="cursor: pointer;">Watch Demo</a>
-    </div>
-  </div>
-  <div class="visual">
-    <div class="orbit"></div>
-    <div class="big-shield"></div>
-    <div class="float-card f1"></div>
-    <div class="float-card f2"></div>
-    <div class="float-card f3"></div>
-    <div class="float-card f4"></div>
-  </div>
-</section>
 <section class="trust" id="about">
   <div class="card">
     <h3>Trusted by Students</h3>
